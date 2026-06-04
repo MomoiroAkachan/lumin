@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+:root {
+    --max-container-width: 1280px;
+    --max-container-fluid-width: 1280px;
+
+    --primary: var(--color-sky-500);
+    --secondary: var(--color-slate-500);
+    --accent: var(--color-amber-500);
+    --background: var(--color-gray-100);
+    --interface: var(--color-white);
+    --surface: var(--color-gray-100);
+
+    --primary-fg: var(--color-white);
+    --secondary-fg: var(--color-white);
+    --accent-fg: var(--color-white);
+    --foreground: var(--color-gray-900);
+    --interface-fg: var(--color-gray-800);
+    --surface-fg: var(--color-gray-700);
+}
+
+.dark {
+    --background: var(--color-gray-900);
+    --foreground: var(--color-gray-100);
+    --interface: var(--color-gray-800);
+    --surface: var(--color-gray-800);
+}
+
+@theme inline {
+    --font-sans:
+        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+    --font-mono:
+        "SF Mono", SF Mono, Consolas, "Liberation Mono", Menlo, Courier,
+        monospace;
+    --font-serif: "Times New Roman", serif;
+    --font-display:
+        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+
+    /* colors */
+    --color-primary: var(--color-sky-500);
+
+    --color-secondary: var(--color-slate-500);
+    --color-accent: var(--color-amber-500);
+    --color-background: var(--color-gray-100);
+    --color-foreground: var(--color-gray-900);
+    --color-interface: var(--color-gray-200);
+    --color-surface: var(--color-gray-100);
+    --color-primary-fg: var(--color-white);
+    --color-secondary-fg: var(--color-white);
+    --color-accent-fg: var(--color-white);
+    --color-interface-fg: var(--color-gray-800);
+    --color-surface-fg: var(--color-gray-700);
+}
+
+@utility container {
+    @apply mx-auto px-4;
+    max-width: var(--max-container-width);
+}
+
+@utility container-fluid {
+    @apply mx-auto px-4;
+    max-width: var(--max-container-fluid-width);
+}
+
+@utility central {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@utility card-* {
+    @apply shadow-md rounded-sm px-6 pt-2.5 pb-3.5 w-fit h-fit;
+    background-color: --value(--color-*);
+    color: color-mix(in srgb, --value(--color-*) 30%, black 70%);
+    border: 1px solid
+        color-mix(
+            in srgb,
+            color-mix(in srgb, --value(--color-*) 30%, black 70%) 75%,
+            transparent 25%
+        );
+}
+
+@layer base {
+    html,
+    body,
+    #root,
+    .superface {
+        font-family: var(--font-sans);
+        background-color: var(--background);
+        color: var(--foreground);
+    }
+}
+
+@layer components {
+}
