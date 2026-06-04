@@ -115,4 +115,16 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Contact Form Notification Recipient
+    |--------------------------------------------------------------------------
+    |
+    | Address that receives the notification emails dispatched by the public
+    | contact form. Falls back to the global "from" address if not set.
+    |
+    */
+
+    'contact_notification_address' => env('CONTACT_NOTIFICATION_EMAIL'),
+
 ];
