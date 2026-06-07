@@ -22,7 +22,7 @@ class ServiceRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:150'],
             'slug' => ['nullable', 'string', 'max:160', Rule::unique('services', 'slug')->ignore($serviceId)],
-            'icon' => ['nullable', 'string', 'max:60'],
+            'icon' => ['nullable', 'string', Rule::in(array_keys(config('admin-icons', [])))],
             'icon_file' => ['nullable', 'image', 'max:2048'],
             'short_description' => ['required', 'string', 'max:255'],
             'full_text' => ['nullable', 'string'],

@@ -11,11 +11,15 @@
     @if($logos->isEmpty())
         <p class="text-gray-500">Nenhum logotipo cadastrado.</p>
     @else
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <x-admin.reorder-hint />
+
+        <div data-sortable-list data-resource="client-logos" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             @foreach($logos as $logo)
-                <div class="relative group bg-interface rounded border border-gray-200 dark:border-gray-700 p-4">
+                <div data-sortable-item data-id="{{ $logo->id }}" class="relative group bg-interface rounded border border-gray-200 dark:border-gray-700 p-4">
+                    <x-admin.sortable-handle-grid />
                     <img src="{{ media_url($logo->logo_path) }}" class="h-16 w-full object-contain">
                     <p class="text-xs text-center mt-2 truncate">{{ $logo->name }}</p>
+                    <p class="text-xs text-center text-gray-400">Ordem: <span data-sortable-position>{{ $logo->position }}</span></p>
                     <div class="absolute top-1 right-1 flex gap-1 opacity-0 group-hover:opacity-100">
                         <a href="{{ route('admin.client-logos.edit', $logo) }}" class="bg-white text-xs px-2 py-1 rounded shadow">✎</a>
                         <form action="{{ route('admin.client-logos.destroy', $logo) }}" method="POST" onsubmit="return confirm('Remover?')">
@@ -26,6 +30,5 @@
                 </div>
             @endforeach
         </div>
-        <div class="mt-4">{{ $logos->links() }}</div>
     @endif
 @endsection

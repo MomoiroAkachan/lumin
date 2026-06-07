@@ -29,14 +29,7 @@
                class="w-full rounded border border-gray-300 px-3 py-2 focus:border-primary focus:outline-none">
     </div>
 
-    <div>
-        <label class="block text-sm font-medium mb-1">Ordem de exibição</label>
-        <input type="number" name="position" min="0"
-               value="{{ old('position', $banner?->position ?? 0) }}"
-               class="w-full rounded border border-gray-300 px-3 py-2 focus:border-primary focus:outline-none">
-    </div>
-
-    <div class="flex items-center gap-2 mt-6">
+    <div class="flex items-center gap-2">
         <input type="hidden" name="is_active" value="0">
         <input type="checkbox" id="is_active" name="is_active" value="1"
                {{ old('is_active', $banner?->is_active ?? true) ? 'checked' : '' }}
@@ -44,20 +37,13 @@
         <label for="is_active" class="text-sm">Ativo (visível no site)</label>
     </div>
 
-    <div class="md:col-span-2">
-        <label class="block text-sm font-medium mb-1">
-            Imagem {{ $banner ? '(deixe em branco para manter a atual)' : '*' }}
-        </label>
-        <input type="file" name="image" accept="image/*"
-               class="w-full text-sm">
-        @if($banner?->image_path)
-            <div class="mt-2">
-                <img src="{{ media_url($banner->image_path) }}"
-                     class="h-24 rounded border border-gray-200">
-            </div>
-        @endif
-        <p class="text-xs text-gray-500 mt-1">JPG, PNG ou WebP. Máx. 4MB.</p>
-    </div>
+    <x-admin.image-upload
+        name="image"
+        label="Imagem do banner"
+        :required="! $banner"
+        :optional="(bool) $banner"
+        :preview-url="$banner?->image_path ? media_url($banner->image_path) : null"
+    />
 </div>
 
 <div class="flex items-center justify-end gap-3 mt-6 border-t pt-4">

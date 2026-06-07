@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Rules\HttpUrl;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ClientLogoRequest extends FormRequest
@@ -21,7 +22,7 @@ class ClientLogoRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:120'],
             'logo' => $logoRule,
-            'link' => ['nullable', 'url', 'max:255'],
+            'link' => ['nullable', 'string', 'max:255', new HttpUrl],
             'position' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['nullable', 'boolean'],
         ];

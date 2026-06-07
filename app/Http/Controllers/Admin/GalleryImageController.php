@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\GalleryImageRequest;
 use App\Models\GalleryImage;
+use App\Support\PositionHelper;
 use App\Services\MediaUploadService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -18,7 +19,7 @@ class GalleryImageController extends Controller
         $images = GalleryImage::query()
             ->orderBy('position')
             ->orderByDesc('id')
-            ->paginate(24);
+            ->get();
 
         return view('pages.admin.gallery.index', compact('images'));
     }
@@ -33,6 +34,7 @@ class GalleryImageController extends Controller
         $data = $request->safe()->except(['image']);
         $data['is_active'] = $request->boolean('is_active');
         $data['image_path'] = $this->uploader->store($request->file('image'), 'gallery');
+        $data['position'] = PositionHelper::next(GalleryImage::class);
 
         GalleryImage::create($data);
 

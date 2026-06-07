@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ServiceRequest;
 use App\Models\Service;
+use App\Support\PositionHelper;
 use App\Services\MediaUploadService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
@@ -19,7 +20,7 @@ class ServiceController extends Controller
         $services = Service::query()
             ->orderBy('position')
             ->orderByDesc('id')
-            ->paginate(15);
+            ->get();
 
         return view('pages.admin.services.index', compact('services'));
     }
@@ -38,6 +39,8 @@ class ServiceController extends Controller
         if ($request->hasFile('icon_file')) {
             $data['icon_path'] = $this->uploader->store($request->file('icon_file'), 'services/icons');
         }
+
+        $data['position'] = PositionHelper::next(Service::class);
 
         Service::create($data);
 

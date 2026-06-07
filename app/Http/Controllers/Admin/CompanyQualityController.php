@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CompanyQualityRequest;
 use App\Models\CompanyQuality;
+use App\Support\PositionHelper;
 use App\Services\MediaUploadService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -18,7 +19,7 @@ class CompanyQualityController extends Controller
         $qualities = CompanyQuality::query()
             ->orderBy('position')
             ->orderByDesc('id')
-            ->paginate(15);
+            ->get();
 
         return view('pages.admin.company-qualities.index', compact('qualities'));
     }
@@ -36,6 +37,8 @@ class CompanyQualityController extends Controller
         if ($request->hasFile('icon_file')) {
             $data['icon_path'] = $this->uploader->store($request->file('icon_file'), 'qualities');
         }
+
+        $data['position'] = PositionHelper::next(CompanyQuality::class);
 
         CompanyQuality::create($data);
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Rules\HttpUrl;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -25,7 +26,7 @@ class PortfolioRequest extends FormRequest
             'slug' => ['nullable', 'string', 'max:170', Rule::unique('portfolios', 'slug')->ignore($portfolioId)],
             'cover_image' => $coverRule,
             'description' => ['nullable', 'string'],
-            'link' => ['nullable', 'url', 'max:255'],
+            'link' => ['nullable', 'string', 'max:255', new HttpUrl],
             'position' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['nullable', 'boolean'],
             'gallery' => ['nullable', 'array'],

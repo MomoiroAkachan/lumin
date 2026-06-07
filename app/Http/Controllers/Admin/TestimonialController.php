@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\TestimonialRequest;
 use App\Models\Testimonial;
+use App\Support\PositionHelper;
 use App\Services\MediaUploadService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -18,7 +19,7 @@ class TestimonialController extends Controller
         $testimonials = Testimonial::query()
             ->orderBy('position')
             ->orderByDesc('id')
-            ->paginate(15);
+            ->get();
 
         return view('pages.admin.testimonials.index', compact('testimonials'));
     }
@@ -36,6 +37,8 @@ class TestimonialController extends Controller
         if ($request->hasFile('photo')) {
             $data['photo_path'] = $this->uploader->store($request->file('photo'), 'testimonials');
         }
+
+        $data['position'] = PositionHelper::next(Testimonial::class);
 
         Testimonial::create($data);
 

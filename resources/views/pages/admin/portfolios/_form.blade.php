@@ -17,22 +17,22 @@
         <label class="block text-sm font-medium mb-1">Descrição</label>
         <textarea name="description" rows="5" class="w-full rounded border border-gray-300 px-3 py-2">{{ old('description', $portfolio?->description) }}</textarea>
     </div>
-    <div>
-        <label class="block text-sm font-medium mb-1">Imagem de capa {{ $portfolio ? '(opcional)' : '*' }}</label>
-        <input type="file" name="cover_image" accept="image/*" class="w-full text-sm">
-        @if($portfolio?->cover_image_path)
-            <img src="{{ media_url($portfolio->cover_image_path) }}" class="h-20 mt-2 rounded">
-        @endif
-    </div>
-    <div>
-        <label class="block text-sm font-medium mb-1">Galeria (múltiplas imagens)</label>
-        <input type="file" name="gallery[]" accept="image/*" multiple class="w-full text-sm">
-    </div>
-    <div>
-        <label class="block text-sm font-medium mb-1">Ordem</label>
-        <input type="number" name="position" min="0" value="{{ old('position', $portfolio?->position ?? 0) }}" class="w-full rounded border border-gray-300 px-3 py-2">
-    </div>
-    <div class="flex items-center gap-2 mt-6">
+    <x-admin.image-upload
+        name="cover_image"
+        label="Imagem de capa"
+        :required="! $portfolio"
+        :optional="(bool) $portfolio"
+        :preview-url="$portfolio?->cover_image_path ? media_url($portfolio->cover_image_path) : null"
+    />
+
+    <x-admin.image-upload
+        name="gallery[]"
+        label="Galeria do projeto"
+        :optional="true"
+        :multiple="true"
+        hint="Selecione uma ou mais imagens para adicionar à galeria."
+    />
+    <div class="flex items-center gap-2">
         <input type="hidden" name="is_active" value="0">
         <input type="checkbox" name="is_active" value="1" id="port_active" {{ old('is_active', $portfolio?->is_active ?? true) ? 'checked' : '' }}>
         <label for="port_active" class="text-sm">Ativo</label>

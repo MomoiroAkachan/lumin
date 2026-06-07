@@ -9,16 +9,15 @@
         <label class="block text-sm font-medium mb-1">Link (opcional)</label>
         <input type="url" name="link" value="{{ old('link', $logo?->link) }}" class="w-full rounded border border-gray-300 px-3 py-2">
     </div>
-    <div class="md:col-span-2">
-        <label class="block text-sm font-medium mb-1">Logotipo {{ $logo ? '(opcional)' : '*' }}</label>
-        <input type="file" name="logo" accept="image/*" class="w-full text-sm">
-        @if($logo?->logo_path)<img src="{{ media_url($logo->logo_path) }}" class="h-20 mt-2 rounded">@endif
-    </div>
-    <div>
-        <label class="block text-sm font-medium mb-1">Ordem</label>
-        <input type="number" name="position" min="0" value="{{ old('position', $logo?->position ?? 0) }}" class="w-full rounded border border-gray-300 px-3 py-2">
-    </div>
-    <div class="flex items-center gap-2 mt-6">
+    <x-admin.image-upload
+        name="logo"
+        label="Logotipo do cliente"
+        :required="! $logo"
+        :optional="(bool) $logo"
+        :preview-url="$logo?->logo_path ? media_url($logo->logo_path) : null"
+        hint="PNG com fundo transparente recomendado. Máx. 2 MB."
+    />
+    <div class="flex items-center gap-2">
         <input type="hidden" name="is_active" value="0">
         <input type="checkbox" name="is_active" value="1" id="cl_active" {{ old('is_active', $logo?->is_active ?? true) ? 'checked' : '' }}>
         <label for="cl_active" class="text-sm">Ativo</label>

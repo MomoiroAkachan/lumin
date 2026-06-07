@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BannerRequest;
 use App\Models\Banner;
+use App\Support\PositionHelper;
 use App\Services\MediaUploadService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -18,7 +19,7 @@ class BannerController extends Controller
         $banners = Banner::query()
             ->orderBy('position')
             ->orderByDesc('id')
-            ->paginate(15);
+            ->get();
 
         return view('pages.admin.banners.index', compact('banners'));
     }
@@ -36,6 +37,8 @@ class BannerController extends Controller
         if ($request->hasFile('image')) {
             $data['image_path'] = $this->uploader->store($request->file('image'), 'banners');
         }
+
+        $data['position'] = PositionHelper::next(Banner::class);
 
         Banner::create($data);
 

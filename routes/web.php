@@ -51,6 +51,8 @@ Route::controller(AuthController::class)->prefix('auth')->group(function () {
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::post('reorder', \App\Http\Controllers\Admin\ReorderController::class)->name('reorder');
+
     Route::resource('banners', BannerController::class)->except(['show']);
     Route::resource('services', AdminServiceController::class)->except(['show']);
 

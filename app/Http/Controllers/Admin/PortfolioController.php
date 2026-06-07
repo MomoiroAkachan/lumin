@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PortfolioRequest;
 use App\Models\Portfolio;
 use App\Models\PortfolioImage;
+use App\Support\PositionHelper;
 use App\Services\MediaUploadService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class PortfolioController extends Controller
             ->withCount('images')
             ->orderBy('position')
             ->orderByDesc('id')
-            ->paginate(15);
+            ->get();
 
         return view('pages.admin.portfolios.index', compact('portfolios'));
     }
@@ -41,6 +42,8 @@ class PortfolioController extends Controller
         if ($request->hasFile('cover_image')) {
             $data['cover_image_path'] = $this->uploader->store($request->file('cover_image'), 'portfolios/covers');
         }
+
+        $data['position'] = PositionHelper::next(Portfolio::class);
 
         $portfolio = Portfolio::create($data);
 
