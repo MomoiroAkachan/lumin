@@ -10,10 +10,15 @@
         </x-slot:action>
     </x-admin.page-header>
 
+    @if($services->isNotEmpty())
+        <x-admin.reorder-hint />
+    @endif
+
     <div class="bg-interface rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
             <thead class="bg-surface text-left">
                 <tr>
+                    <th class="px-2 py-3 w-10"></th>
                     <th class="px-4 py-3">Título</th>
                     <th class="px-4 py-3">Slug</th>
                     <th class="px-4 py-3">Ordem</th>
@@ -21,12 +26,13 @@
                     <th class="px-4 py-3 text-right">Ações</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody data-sortable-list data-resource="services" class="divide-y divide-gray-200 dark:divide-gray-700">
                 @forelse($services as $service)
-                    <tr>
+                    <tr data-sortable-item data-id="{{ $service->id }}">
+                        <x-admin.sortable-handle />
                         <td class="px-4 py-3 font-medium">{{ $service->title }}</td>
                         <td class="px-4 py-3 text-gray-500">{{ $service->slug }}</td>
-                        <td class="px-4 py-3">{{ $service->position }}</td>
+                        <td class="px-4 py-3"><span data-sortable-position>{{ $service->position }}</span></td>
                         <td class="px-4 py-3">
                             <span class="inline-flex px-2 py-0.5 rounded text-xs {{ $service->is_active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600' }}">
                                 {{ $service->is_active ? 'Ativo' : 'Inativo' }}
@@ -41,11 +47,9 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="5" class="px-4 py-8 text-center text-gray-500">Nenhum serviço cadastrado.</td></tr>
+                    <tr><td colspan="6" class="px-4 py-8 text-center text-gray-500">Nenhum serviço cadastrado.</td></tr>
                 @endforelse
             </tbody>
         </table>
     </div>
-
-    <div class="mt-4">{{ $services->links() }}</div>
 @endsection

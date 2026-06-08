@@ -9,7 +9,9 @@
                     @if($service->icon_path)
                         <img src="{{ media_url($service->icon_path) }}" alt="" class="h-12 w-12 mb-4">
                     @elseif($service->icon)
-                        <div class="h-12 w-12 mb-4 rounded bg-primary/10 flex items-center justify-center text-primary text-xl">★</div>
+                        <div class="h-12 w-12 mb-4 rounded bg-primary/10 flex items-center justify-center text-primary">
+                            <x-site.icon :name="$service->icon" class="w-7 h-7" />
+                        </div>
                     @endif
                     <h3 class="text-xl font-semibold mb-2">{{ $service->title }}</h3>
                     <p class="text-gray-600 text-sm mb-4">{{ $service->short_description }}</p>

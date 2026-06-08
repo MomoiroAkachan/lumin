@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CompanyQualityRequest extends FormRequest
 {
@@ -18,7 +19,7 @@ class CompanyQualityRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:120'],
-            'icon' => ['nullable', 'string', 'max:60'],
+            'icon' => ['nullable', 'string', Rule::in(array_keys(config('admin-icons', [])))],
             'icon_file' => ['nullable', 'image', 'max:2048'],
             'description' => ['required', 'string'],
             'position' => ['nullable', 'integer', 'min:0'],

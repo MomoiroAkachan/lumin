@@ -6,7 +6,11 @@
             @foreach($qualities as $quality)
                 <div class="text-center">
                     @if($quality->icon_path)
-                        <img src="{{ media_url($quality->icon_path) }}" class="h-16 w-16 mx-auto mb-3">
+                        <img src="{{ media_url($quality->icon_path) }}" alt="" class="h-16 w-16 mx-auto mb-3">
+                    @elseif($quality->icon)
+                        <div class="h-16 w-16 mx-auto mb-3 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                            <x-site.icon :name="$quality->icon" class="w-8 h-8" />
+                        </div>
                     @else
                         <div class="h-16 w-16 mx-auto mb-3 rounded-full bg-primary/10 flex items-center justify-center text-primary text-2xl">✓</div>
                     @endif

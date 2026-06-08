@@ -36,6 +36,20 @@ it('cria um banner com upload de imagem', function () {
     Storage::disk('local')->assertExists($banner->image_path);
 });
 
+it('aceita cta_url com fragmento duplo na hash', function () {
+    $this->post(route('admin.banners.store'), [
+        'title' => 'Banner GOG',
+        'cta_label' => 'Ver oferta',
+        'cta_url' => 'https://www.gog.com/en##openlogin',
+        'position' => 0,
+        'is_active' => '1',
+        'image' => UploadedFile::fake()->image('banner.jpg', 1200, 600),
+    ])->assertRedirect(route('admin.banners.index'));
+
+    expect(Banner::firstWhere('title', 'Banner GOG')?->cta_url)
+        ->toBe('https://www.gog.com/en##openlogin');
+});
+
 it('atualiza um banner e remove a imagem antiga ao trocá-la', function () {
     $oldFile = UploadedFile::fake()->image('old.jpg');
     $oldPath = $oldFile->store('banners', 'local');

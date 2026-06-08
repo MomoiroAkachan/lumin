@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@push('header')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="admin-reorder-url" content="{{ route('admin.reorder') }}">
+@endpush
+
 @php
     $navItems = [
         ['route' => 'admin.dashboard', 'label' => 'Dashboard', 'icon' => '◧'],

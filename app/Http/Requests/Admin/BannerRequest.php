@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Rules\HttpUrl;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BannerRequest extends FormRequest
@@ -23,7 +24,7 @@ class BannerRequest extends FormRequest
             'subtitle' => ['nullable', 'string', 'max:255'],
             'image' => $imageRule,
             'cta_label' => ['nullable', 'string', 'max:60'],
-            'cta_url' => ['nullable', 'url', 'max:255'],
+            'cta_url' => ['nullable', 'string', 'max:255', new HttpUrl],
             'position' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['nullable', 'boolean'],
         ];

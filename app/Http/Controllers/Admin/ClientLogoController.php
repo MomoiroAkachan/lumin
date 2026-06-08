@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ClientLogoRequest;
 use App\Models\ClientLogo;
+use App\Support\PositionHelper;
 use App\Services\MediaUploadService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -18,7 +19,7 @@ class ClientLogoController extends Controller
         $logos = ClientLogo::query()
             ->orderBy('position')
             ->orderByDesc('id')
-            ->paginate(20);
+            ->get();
 
         return view('pages.admin.client-logos.index', compact('logos'));
     }
@@ -33,6 +34,7 @@ class ClientLogoController extends Controller
         $data = $request->safe()->except(['logo']);
         $data['is_active'] = $request->boolean('is_active');
         $data['logo_path'] = $this->uploader->store($request->file('logo'), 'client-logos');
+        $data['position'] = PositionHelper::next(ClientLogo::class);
 
         ClientLogo::create($data);
 
