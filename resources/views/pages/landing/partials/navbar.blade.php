@@ -1,5 +1,5 @@
-<nav class="sticky top-0 z-50 bg-interface/95 backdrop-blur border-b border-gray-200">
-    <div class="container flex items-center justify-between py-4">
+<nav class="border-b-navbar-bd absolute z-50 backdrop-blur border-b w-full bg-navbar text-navbar-fg **:transition-colors">
+    <div class="container items-center justify-between py-4 flex flex-row">
         <a href="#topo" class="text-xl font-bold text-primary">{{ config('app.name') }}</a>
         <ul class="hidden md:flex items-center gap-6 text-sm">
             <li><a href="#servicos" class="hover:text-primary">Serviços</a></li>

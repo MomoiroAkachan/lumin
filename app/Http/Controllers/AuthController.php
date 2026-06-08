@@ -15,6 +15,9 @@ class AuthController extends Controller
 {
     public function login(): View
     {
+        // User::create([
+        //     'email' => ''
+        // ]);
         return view('pages.auth.login');
     }
 

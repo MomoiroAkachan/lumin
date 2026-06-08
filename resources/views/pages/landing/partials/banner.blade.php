@@ -1,12 +1,13 @@
 <section id="topo" class="relative">
+    <div class="absolute top-0 left-0 right-0 z-10 bg-linear-180 from-zinc-900/50 to-transparent h-1/5"></div>
     @forelse($banners as $banner)
-        <div class="relative h-[60vh] min-h-[400px] flex items-center justify-center text-white overflow-hidden {{ ! $loop->first ? 'hidden' : '' }}">
+        <div class="relative h-[85vh] min-h-100 flex items-center justify-center text-white overflow-hidden {{ ! $loop->first ? 'hidden' : '' }}">
             @if($banner->image_path)
                 <img src="{{ media_url($banner->image_path) }}" alt="{{ $banner->title }}"
                      class="absolute inset-0 w-full h-full object-cover">
                 <div class="absolute inset-0 bg-black/50"></div>
             @else
-                <div class="absolute inset-0 bg-gradient-to-r from-primary to-secondary"></div>
+                <div class="absolute inset-0 bg-linear-to-r from-zinc-800 to-zinc-700"></div>
             @endif
 
             <div class="relative container text-center">
@@ -22,11 +23,20 @@
             </div>
         </div>
     @empty
-        <div class="h-[40vh] flex items-center justify-center bg-gradient-to-r from-primary to-secondary text-white">
+        <div class="h-[85vh] flex items-center justify-center bg-linear-to-r from-zinc-800 to-zinc-700 text-white">
             <div class="text-center container">
                 <h1 class="text-3xl md:text-5xl font-bold">{{ config('app.name') }}</h1>
                 <p class="text-lg mt-3">{{ $settings['company_tagline'] ?? 'Tecnologia que transforma' }}</p>
             </div>
         </div>
     @endforelse
+    <div class="absolute bottom-0 left-0 right-0 z-10 bg-linear-360 from-zinc-900/40 to-transparent h-1/5"></div>
+    <div class="bg-primary absolute z-20 left-2 -bottom-5 flex flex-row *:px-7 *:py-4 *:text-sm *:text-primary-fg">
+        <a href="#">Pronus</a>
+        <a href="#">Pronus</a>
+        <a href="#">Pronus</a>
+        <a href="#">Pronus</a>
+        <a href="#">Pronus</a>
+        <a href="#">Pronus</a>
+    </div>
 </section>

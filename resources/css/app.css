@@ -6,20 +6,21 @@
 :root {
     --max-container-width: 1280px;
     --max-container-fluid-width: 1280px;
-
     --primary: var(--color-sky-500);
     --secondary: var(--color-slate-500);
     --accent: var(--color-amber-500);
     --background: var(--color-gray-100);
     --interface: var(--color-white);
     --surface: var(--color-gray-100);
-
     --primary-fg: var(--color-white);
     --secondary-fg: var(--color-white);
     --accent-fg: var(--color-white);
     --foreground: var(--color-gray-900);
     --interface-fg: var(--color-gray-800);
     --surface-fg: var(--color-gray-700);
+    --navbar: var(--interface);
+    --navbar-fg: var(--interface-fg);
+    --navbar-bd: var(--color-zinc-50);
 }
 
 .dark {
@@ -27,6 +28,15 @@
     --foreground: var(--color-gray-100);
     --interface: var(--color-gray-800);
     --surface: var(--color-gray-800);
+}
+
+.clear {
+    @apply tracking-wider;
+    --navbar: transparent;
+    --navbar-fg: white;
+    --navbar-bd: var(--color-zinc-50);
+    --background: var(--color-zinc-50);
+    font-family: "Inter";
 }
 
 @theme inline {
@@ -44,19 +54,23 @@
         "Noto Color Emoji";
 
     /* colors */
-    --color-primary: var(--color-sky-500);
+    --color-primary: var(--primary);
+    --color-primary-fg: var(--primary-fg);
+    --color-secondary: var(--color-secondary);
+    --color-secondary-fg: var(--color-secondary-fg);
 
-    --color-secondary: var(--color-slate-500);
-    --color-accent: var(--color-amber-500);
-    --color-background: var(--color-gray-100);
-    --color-foreground: var(--color-gray-900);
-    --color-interface: var(--color-gray-200);
-    --color-surface: var(--color-gray-100);
-    --color-primary-fg: var(--color-white);
-    --color-secondary-fg: var(--color-white);
-    --color-accent-fg: var(--color-white);
-    --color-interface-fg: var(--color-gray-800);
-    --color-surface-fg: var(--color-gray-700);
+    --color-accent: var(--accent);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-interface: var(--interface);
+    --color-surface: var(--surface);
+    --color-accent-fg: var(--accent-fg);
+    --color-interface-fg: var(--interface-fg);
+    --color-surface-fg: var(--surface-fg);
+
+    --color-navbar: var(--navbar);
+    --color-navbar-fg: var(--navbar-fg);
+    --color-navbar-bd: var(--navbar-bd);
 }
 
 @utility container {
@@ -88,14 +102,29 @@
         );
 }
 
+@utility btn-* {
+    @apply text-sm shadow-xs rounded-sm px-3 py-1.5 w-fit h-fit flex flex-row items-center justify-center gap-2;
+    background-color: --value(--color-*);
+    color: color-mix(in srgb, --value(--color-*) 30%, black 70%);
+    border: 1px solid
+        color-mix(
+            in srgb,
+            color-mix(in srgb, --value(--color-*) 30%, black 70%) 75%,
+            transparent 25%
+        );
+}
+
 @layer base {
     html,
     body,
     #root,
     .superface {
-        font-family: var(--font-sans);
         background-color: var(--background);
         color: var(--foreground);
+    }
+
+    * {
+        scroll-behavior: smooth;
     }
 }
 
