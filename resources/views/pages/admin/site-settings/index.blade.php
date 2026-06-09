@@ -18,7 +18,7 @@
         @csrf @method('PUT')
 
         @foreach($settings as $group => $items)
-            <div class="bg-interface rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+            <div class="bg-interface rounded-lg border border-interface-bd  p-6">
                 <h3 class="text-lg font-semibold mb-4">{{ $groupLabels[$group] ?? ucfirst($group) }}</h3>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -1,3 +1,5 @@
+import { initSortableLists } from "./sortablesList";
+
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[data-image-upload]').forEach((group) => {
         const input = group.querySelector('input[type="file"]');
@@ -126,93 +128,5 @@ function initIconPickers() {
         });
 
         clearBtn?.addEventListener('click', () => setSelected('', 'Nenhum'));
-    });
-}
-
-function initSortableLists() {
-    const csrf = document.querySelector('meta[name="csrf-token"]')?.content;
-    const reorderUrl = document.querySelector('meta[name="admin-reorder-url"]')?.content;
-
-    if (! csrf || ! reorderUrl) {
-        return;
-    }
-
-    document.querySelectorAll('[data-sortable-list]').forEach((list) => {
-        const resource = list.dataset.resource;
-        let dragged = null;
-
-        const items = () => [...list.querySelectorAll('[data-sortable-item]')];
-
-        const updatePositions = () => {
-            items().forEach((item, index) => {
-                const badge = item.querySelector('[data-sortable-position]');
-                if (badge) {
-                    badge.textContent = String(index);
-                }
-            });
-        };
-
-        const persistOrder = async () => {
-            const order = items().map((item) => Number(item.dataset.id));
-
-            const response = await fetch(reorderUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'X-CSRF-TOKEN': csrf,
-                },
-                body: JSON.stringify({ resource, order }),
-            });
-
-            if (! response.ok) {
-                window.location.reload();
-            }
-        };
-
-        items().forEach((item) => {
-            const handle = item.querySelector('[data-sortable-handle]') ?? item;
-
-            handle.addEventListener('dragstart', (event) => {
-                dragged = item;
-                item.classList.add('opacity-60', 'ring-2', 'ring-primary/40');
-                event.dataTransfer.effectAllowed = 'move';
-            });
-
-            handle.addEventListener('dragend', () => {
-                item.classList.remove('opacity-60', 'ring-2', 'ring-primary/40');
-                dragged = null;
-            });
-        });
-
-        list.addEventListener('dragover', (event) => {
-            event.preventDefault();
-            if (! dragged) {
-                return;
-            }
-
-            const target = event.target.closest('[data-sortable-item]');
-            if (! target || target === dragged) {
-                return;
-            }
-
-            const rect = target.getBoundingClientRect();
-            const isGrid = window.getComputedStyle(list).display.includes('grid');
-            const before = isGrid
-                ? event.clientY < rect.top + rect.height / 2
-                : event.clientY < rect.top + rect.height / 2;
-
-            if (before) {
-                list.insertBefore(dragged, target);
-            } else {
-                list.insertBefore(dragged, target.nextSibling);
-            }
-        });
-
-        list.addEventListener('drop', (event) => {
-            event.preventDefault();
-            updatePositions();
-            persistOrder();
-        });
     });
 }

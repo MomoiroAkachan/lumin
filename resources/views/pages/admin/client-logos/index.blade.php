@@ -15,7 +15,7 @@
 
         <div data-sortable-list data-resource="client-logos" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             @foreach($logos as $logo)
-                <div data-sortable-item data-id="{{ $logo->id }}" class="relative group bg-interface rounded border border-gray-200 dark:border-gray-700 p-4">
+                <div data-sortable-item data-id="{{ $logo->id }}" class="relative group bg-interface rounded border border-interface-bd  p-4">
                     <x-admin.sortable-handle-grid />
                     <img src="{{ media_url($logo->logo_path) }}" class="h-16 w-full object-contain">
                     <p class="text-xs text-center mt-2 truncate">{{ $logo->name }}</p>

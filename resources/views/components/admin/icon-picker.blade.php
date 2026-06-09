@@ -15,7 +15,7 @@
 
     <input type="hidden" name="{{ $name }}" value="{{ $selected }}" data-icon-input>
 
-    <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 p-4 rounded-xl border border-gray-200 bg-surface max-h-64 overflow-y-auto">
+    <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 p-4 rounded-xl border border-interface-bd bg-surface max-h-64 overflow-y-auto">
         @foreach($icons as $slug => $icon)
             <button
                 type="button"

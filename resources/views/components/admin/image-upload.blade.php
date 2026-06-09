@@ -21,9 +21,9 @@
     </p>
 
     @if($previewUrl)
-        <div class="mb-3 rounded-lg border border-gray-200 bg-surface p-3">
+        <div class="mb-3 rounded-lg border border-interface-bd bg-surface p-3">
             <p class="text-xs font-medium text-gray-500 mb-2">Imagem atual</p>
-            <img src="{{ $previewUrl }}" alt="" class="max-h-36 rounded-md border border-gray-200 object-cover shadow-sm">
+            <img src="{{ $previewUrl }}" alt="" class="max-h-36 rounded-md border border-interface-bd object-cover shadow-sm">
         </div>
     @endif
 

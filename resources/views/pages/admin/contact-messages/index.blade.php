@@ -12,12 +12,12 @@
         <a href="?status=replied" class="{{ request('status') === 'replied' ? 'font-semibold text-primary' : 'text-gray-500' }}">Respondidas</a>
     </div>
 
-    <div class="bg-interface rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+    <div class="bg-interface rounded-lg border border-interface-bd  overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200 dark:border-dvide-bd text-sm">
             <thead class="bg-surface text-left">
                 <tr><th class="px-4 py-3">Status</th><th class="px-4 py-3">Nome</th><th class="px-4 py-3">E-mail</th><th class="px-4 py-3">Assunto</th><th class="px-4 py-3">Serviço</th><th class="px-4 py-3">Recebida em</th><th class="px-4 py-3"></th></tr>
             </thead>
-            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody class="divide-y divide-gray-200 dark:border-dvide-bd">
                 @forelse($messages as $m)
                     <tr class="{{ $m->status === 'new' ? 'bg-yellow-50' : '' }}">
                         <td class="px-4 py-3"><span class="inline-flex px-2 py-0.5 rounded text-xs bg-gray-100">{{ $m->status }}</span></td>

@@ -15,7 +15,7 @@
 
         <div data-sortable-list data-resource="gallery" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             @foreach($images as $image)
-                <div data-sortable-item data-id="{{ $image->id }}" class="relative group bg-interface rounded border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <div data-sortable-item data-id="{{ $image->id }}" class="relative group bg-interface rounded border border-interface-bd  overflow-hidden">
                     <x-admin.sortable-handle-grid />
                     <img src="{{ media_url($image->image_path) }}" class="w-full h-32 object-cover">
                     <div class="p-2 text-xs">

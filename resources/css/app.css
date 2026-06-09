@@ -21,6 +21,10 @@
     --navbar: var(--interface);
     --navbar-fg: var(--interface-fg);
     --navbar-bd: var(--color-zinc-50);
+    --interface-bd: var(--color-zinc-100);
+    --danger: var(--color-red-700);
+    --danger-fg: var(--color-red-50);
+    --divide-bd: var(--color-zinc-200);
 }
 
 .dark {
@@ -35,8 +39,20 @@
     --navbar: transparent;
     --navbar-fg: white;
     --navbar-bd: var(--color-zinc-50);
-    --background: var(--color-zinc-50);
+    
+    --divide-bd: var(--color-red-400);
     font-family: "Inter";
+
+    --background: #f6fafa;
+    --foreground: #1b1f24;
+
+    --inteface: white;
+    --interface-fg: var(--foreground);
+    --interface-bd: #61636636;
+
+    --surface: white;
+    --surface-fg: black;
+    --surface-bd: black;
 }
 
 @theme inline {
@@ -68,9 +84,17 @@
     --color-interface-fg: var(--interface-fg);
     --color-surface-fg: var(--surface-fg);
 
+    --color-interface-bd: var(--interface-bd);
+
     --color-navbar: var(--navbar);
     --color-navbar-fg: var(--navbar-fg);
     --color-navbar-bd: var(--navbar-bd);
+
+    --color-danger: var(--danger);
+    --color-danger-fg: var(--danger-fg);
+
+    --color-divide-bd: var(--divide-bd);
+    
 }
 
 @utility container {
@@ -131,5 +155,16 @@
 @layer components {
     .image-upload-dropzone:focus-within {
         @apply border-primary bg-primary/10 ring-2 ring-primary/30 outline-none;
+    }
+    .drag-ghost{
+        @apply opacity-50;
+    }
+
+    .drag-chosen{
+        @apply ring-2 ring-accent;
+    }
+
+    .drag-class{
+        @apply bg-red-400;
     }
 }

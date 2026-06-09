@@ -8,7 +8,7 @@
         </x-slot:action>
     </x-admin.page-header>
 
-    <div class="bg-interface rounded-lg border border-gray-200 dark:border-gray-700 p-6 space-y-4">
+    <div class="bg-interface rounded-lg border border-interface-bd  p-6 space-y-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div><span class="text-gray-500">Nome:</span> <strong>{{ $message->name }}</strong></div>
             <div><span class="text-gray-500">E-mail:</span> <a href="mailto:{{ $message->email }}" class="text-primary hover:underline">{{ $message->email }}</a></div>

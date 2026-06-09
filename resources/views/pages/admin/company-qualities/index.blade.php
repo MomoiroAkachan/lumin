@@ -12,8 +12,8 @@
         <x-admin.reorder-hint />
     @endif
 
-    <div class="bg-interface rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+    <div class="bg-interface rounded-lg border border-interface-bd  overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200 dark:border-dvide-bd text-sm">
             <thead class="bg-surface text-left">
                 <tr>
                     <th class="px-2 py-3 w-10"></th>
@@ -23,7 +23,7 @@
                     <th class="px-4 py-3 text-right">Ações</th>
                 </tr>
             </thead>
-            <tbody data-sortable-list data-resource="company-qualities" class="divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody data-sortable-list data-resource="company-qualities" class="divide-y divide-gray-200 dark:border-dvide-bd">
                 @forelse($qualities as $quality)
                     <tr data-sortable-item data-id="{{ $quality->id }}">
                         <x-admin.sortable-handle />

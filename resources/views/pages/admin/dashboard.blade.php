@@ -22,7 +22,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         @foreach($cards as $card)
             <a href="{{ route($card['route']) }}"
-               class="block bg-interface rounded-lg border border-gray-200 dark:border-gray-700 p-4 hover:shadow-md transition">
+               class="block bg-interface rounded-lg border border-interface-bd p-4 hover:shadow-md transition">
                 <p class="text-xs uppercase tracking-wider text-gray-500">{{ $card['label'] }}</p>
                 <p class="text-3xl font-semibold mt-2 text-primary">{{ $card['value'] }}</p>
             </a>

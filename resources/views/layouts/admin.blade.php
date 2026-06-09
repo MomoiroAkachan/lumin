@@ -21,49 +21,64 @@
 @endphp
 
 @section('page-content')
-    <div class="flex min-h-screen bg-background text-foreground">
-        <aside class="hidden md:flex md:flex-col w-64 bg-interface border-r border-gray-200 dark:border-gray-700">
-            <div class="px-5 py-4 border-b border-gray-200 dark:border-gray-700">
+    <div class="h-screen bg-background text-foreground">
+
+        {{-- HEADER FIXO --}}
+        <header class="h-14 bg-interface text-interface-fg border-b border-interface-bd
+                   px-8 flex items-center justify-between sticky top-0 z-20">
+            <div>
                 <a href="{{ route('home') }}" class="text-lg font-semibold text-primary">
                     {{ config('app.name') }}
                 </a>
                 <p class="text-xs text-gray-500">Painel administrativo</p>
             </div>
 
-            <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-                @foreach($navItems as $item)
-                    @php $active = request()->routeIs($item['route']) || request()->routeIs(str_replace('.index', '.*', $item['route'])); @endphp
-                    <a href="{{ route($item['route']) }}"
-                       class="flex items-center gap-3 px-3 py-2 rounded text-sm transition
-                              {{ $active ? 'bg-primary text-primary-fg' : 'hover:bg-surface text-interface-fg' }}">
-                        <span class="text-base leading-none">{{ $item['icon'] }}</span>
-                        <span>{{ $item['label'] }}</span>
-                    </a>
-                @endforeach
-            </nav>
+            <h1 class="text-lg font-semibold">@yield('admin-title')</h1>
 
-            <div class="px-3 py-3 border-t border-gray-200 dark:border-gray-700">
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="w-full text-left block px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded">
-                        Sair
-                    </button>
-                </form>
+            <div class="text-sm text-gray-500">
+                {{ auth()->user()?->name }}
             </div>
-        </aside>
+        </header>
 
-        <div class="flex-1 flex flex-col min-w-0">
-            <header class="bg-interface border-b border-gray-200 dark:border-gray-700 px-6 py-3 flex items-center justify-between">
-                <h1 class="text-lg font-semibold">@yield('admin-title')</h1>
-                <div class="flex items-center gap-3 text-sm text-gray-500">
-                    <span>{{ auth()->user()?->name }}</span>
+        {{-- CONTEÚDO --}}
+        <div class="flex h-[calc(100vh-3.5rem)]">
+
+            {{-- SIDEBAR FIXA --}}
+            <aside class="w-64 bg-interface border-r border-interface-bd flex flex-col">
+                <nav class="flex-1 px-3 py-4 space-y-1">
+                    @foreach($navItems as $item)
+                                @php
+                                    $active =
+                                        request()->routeIs($item['route']) ||
+                                        request()->routeIs(str_replace('.index', '.*', $item['route']));
+                                @endphp
+
+                                <a href="{{ route($item['route']) }}" class="flex items-center gap-3 px-3 py-2 rounded text-sm transition
+                                       {{ $active
+                        ? 'bg-primary text-primary-fg'
+                        : 'hover:bg-surface text-interface-fg' }}">
+                                    <span class="text-base leading-none">{{ $item['icon'] }}</span>
+                                    <span>{{ $item['label'] }}</span>
+                                </a>
+                    @endforeach
+                </nav>
+
+                <div class="border-t border-zinc-200/25">
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="w-full text-left px-3 py-2 text-sm text-danger hover:bg-danger hover:text-danger-fg transition cursor-pointer">
+                            Sair
+                        </button>
+                    </form>
                 </div>
-            </header>
+            </aside>
 
-            <main class="flex-1 p-6 overflow-y-auto">
+            {{-- MAIN COM SCROLL --}}
+            <main class="flex-1 overflow-y-auto bg-surface p-6">
                 <x-admin.flash />
                 @yield('admin-content')
             </main>
+
         </div>
     </div>
 @endsection

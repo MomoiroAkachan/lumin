@@ -1,5 +1,5 @@
 <section id="servicos" class="py-16 bg-surface">
-    <div class="max-w-[95%] card-accent mx-auto w-full bg-zinc-800 text-white">
+    <div class="max-w-[95%] card-accent mx-auto w-full bg-zinc-800 text-white pb-9">
         <h2 class="text-3xl font-bold text-center my-9 mb-2">Serviços</h2>
         <p class="text-center text-gray-500 mb-10">Soluções tecnológicas para sua empresa</p>
 
